@@ -6,24 +6,38 @@
         <title>Text Reviewer</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
     </head>
     <body>
+        <div id="input-container">
         <form action="" method="POST" enctype="multipart/form-data">
             <input type="file" name="file"/>
             <input type="submit" />
         </form>
+        </div>
+
+        <div id="table-container">
         {% if details %}
         <p>The file contains {{details.word_count}} words</p>
         <h1>The following is how often each word was used</h1>
+        <table>
+            <tr>
+                <th>Word</th>
+                <th>Count</th>
+            </tr>
             {% for val in details.word_usage %}
                 {% if val != " " %}
-                <p>{{val}}: {{details.word_usage[val]}}</p>
+                <tr>
+                    <td>{{val}}</td>
+                    <td>{{details.word_usage[val]}}</td>
+                </tr>
                 {% endif %}
             {% endfor %}
+        </table>
         {% endif %}
         {% if error %}
             <p>{{error}}</p>
         {% endif %}
+        </div>
     </body>
 </html>
